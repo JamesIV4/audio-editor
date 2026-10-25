@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; media-src 'self' blob:">
+  <title>SFX Editor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside id="sidebar">
+    <div class="side-head">
+      <span>Sounds</span>
+      <button id="addBtn" title="Add sound files">+ Add</button>
+    </div>
+    <ul id="clipList"></ul>
+    <div class="side-foot">
+      <button id="matchBtn" title="Set every other sound's gain so its loudness matches the selected sound">Match others to selected</button>
+      <div class="row">
+        <button id="playAllBtn" title="Play every sound back to back at its current gain">▶ Play all</button>
+        <button id="saveAllBtn" title="Save a -edit copy of every sound with unsaved changes">Save all</button>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <div id="toolbar">
+      <button id="previewBtn" class="big" title="Play the selection (or the whole sound if nothing is selected)">▶ Preview<kbd>Space</kbd></button>
+      <button id="cutBtn" class="big" title="Remove the selection">Cut<kbd>Del</kbd></button>
+      <button id="silenceBtn" class="big" title="Replace the selection with silence">Silence<kbd>M</kbd></button>
+      <button id="trimBtn" title="Keep only the selection">Trim to selection<kbd>T</kbd></button>
+      <button id="monoBtn" title="Mix all channels down to one, removing left-right panning (whole sound)">Make mono<kbd>O</kbd></button>
+      <span class="spacer"></span>
+      <button id="undoBtn" title="Undo the last edit">Undo<kbd>Ctrl+Z</kbd></button>
+      <button id="saveBtn" class="big primary" title="Write name-edit.wav next to the original">Save -edit<kbd>Ctrl+S</kbd></button>
+    </div>
+
+    <div id="stage">
+      <canvas id="wave"></canvas>
+      <div id="empty">Drop sounds here<small>or click to browse · wav, mp3, ogg, flac</small></div>
+    </div>
+
+    <div id="status">
+      <span id="clipInfo"></span>
+      <span id="selInfo"></span>
+    </div>
+  </main>
+
+  <template id="clipTpl">
+    <li class="clip">
+      <div class="clip-top">
+        <button class="play" title="Play the whole sound">▶</button>
+        <span class="name"></span>
+        <button class="remove" title="Remove from list">×</button>
+      </div>
+      <div class="clip-gain">
+        <input type="range" min="-30" max="30" step="0.1" value="0" title="Gain (double-click to reset)">
+        <span class="db"></span>
+      </div>
+      <div class="meter"><div class="loud"></div><div class="ref"></div><div class="peak"></div></div>
+      <div class="levels"></div>
+    </li>
+  </template>
+
+  <input type="file" id="fileInput" multiple accept="audio/*,.wav,.mp3,.ogg,.flac,.m4a,.aac,.webm" hidden>
+  <div id="dropOverlay">Drop to load</div>
+  <div id="toast"></div>
+  <script src="renderer.js"></script>
+</body>
+</html>

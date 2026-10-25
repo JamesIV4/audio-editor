@@ -1,0 +1,13 @@
+{
+  "name": "audio-editor",
+  "version": "1.0.0",
+  "description": "Quick sound effect trimmer: drop, select, cut/silence, save a -edit copy.",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^45.0.0"
+  }
+}
